@@ -1,0 +1,23 @@
+.root {
+  position: relative;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  h1 {
+    font-size: 10vh;
+  }
+}
+
+.background {
+  top: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  z-index: -1;
+}

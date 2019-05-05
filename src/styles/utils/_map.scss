@@ -1,0 +1,7 @@
+@function get($map, $key, $default: '') {
+  @if map-has-key($map, $key) {
+    @return map-get($map, $key);
+  }
+
+  @return $default;
+}

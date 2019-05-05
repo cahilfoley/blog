@@ -1,0 +1,98 @@
+@import 'styles/colors';
+@import 'styles/mixins/animations';
+@import 'styles/utils/map';
+@import 'styles/utils/math';
+@import 'styles/utils/trig';
+@import './variables';
+
+@function getHexagonProperties($width) {
+  // Using law of sines to calculate the unknown side length (e.g. https://bit.ly/2LpMlDh)
+  $lawOfSines: sin(30deg) / sin(120deg);
+  $sideLength: $width * $lawOfSines;
+
+  // Perimeter
+  $perimeter: 2 * $sideLength + $width;
+
+  // Semiperimeter
+  $semiPerimeter: $perimeter / 2;
+
+  // Area using Heron's formula
+  $input: strip-unit($semiPerimeter) * strip-unit($semiPerimeter - $width) *
+    strip-unit($semiPerimeter - $sideLength) *
+    strip-unit($semiPerimeter - $sideLength);
+  $area: sqrt($input);
+
+  // Calculate the height from it's area
+  $height: #{2 * $area / strip-unit($width) + 'vw'};
+
+  @return (
+    lawOfSines: $lawOfSines,
+    sideLength: $sideLength,
+    perimeter: $perimeter,
+    input: $input,
+    area: $area,
+    height: $height
+  );
+}
+
+@mixin fixed($x, $y) {
+  position: fixed;
+  top: $y;
+  right: $x;
+}
+
+@mixin fixedHexagon($width, $bg) {
+  $hex: getHexagonProperties($width);
+  $sineAngle: 0.86602540378443;
+
+  width: $width;
+  transform: rotate(-60deg) skewY(30deg);
+  padding-bottom: $width / $sineAngle;
+  @debug $width / get($hex, lawOfSines);
+  visibility: hidden;
+  overflow: hidden;
+
+  * {
+    position: absolute;
+    visibility: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  &_inner {
+    background: $bg;
+    transform: skewY(-30deg) rotate(60deg);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: get($hex, height);
+    width: $width;
+    height: calc(100% - #{get($hex, height)} * 2);
+  }
+}
+
+.wrapper {
+  transition: 0.5s ease-out;
+  @each $index, $settings in $positions {
+    &_#{$index} {
+      @include fixed(get($settings, position) ...);
+    }
+  }
+}
+
+.shape {
+  @each $index, $settings in $positions {
+    &_#{$index} {
+      @include fixedHexagon(get($settings, width), $background);
+      opacity: get($settings, opacity, 0.7);
+    }
+  }
+}

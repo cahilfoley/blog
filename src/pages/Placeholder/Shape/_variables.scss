@@ -1,0 +1,65 @@
+$border-width: 1px;
+$border-padding: 2%;
+$border-radius: 20%;
+$background: linear-gradient(
+  -45deg,
+  darken($mdc-theme-primary, 15),
+  darken($mdc-theme-primary, 40)
+);
+
+$positions: (
+  0: (
+    position: (
+      40vw,
+      65vh,
+    ),
+    width: 15vw,
+  ),
+  1: (
+    position: (
+      -5vw,
+      -5vh,
+    ),
+    width: 18vw,
+    opacity: 0.5,
+  ),
+  2: (
+    position: (
+      0,
+      25vh,
+    ),
+    width: 25vw,
+  ),
+  3: (
+    position: (
+      calc(50% - 100px),
+      calc(40% - 100px),
+    ),
+    width: 25vw,
+    opacity: 0.5,
+  ),
+  4: (
+    position: (
+      10%,
+      10%,
+    ),
+    width: 45vw,
+    opacity: 0.2,
+  ),
+  5: (
+    position: (
+      73vw,
+      70vh,
+    ),
+    width: 35vw,
+    opacity: 0.5,
+  ),
+  6: (
+    position: (
+      90vw,
+      -10vh,
+    ),
+    width: 30vw,
+    opacity: 0.3,
+  ),
+);

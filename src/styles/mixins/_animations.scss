@@ -1,0 +1,52 @@
+@keyframes side-to-side {
+  from {
+    transform: translate(-10%);
+  }
+  to {
+    transform: translate(10%);
+  }
+}
+
+@mixin sideToSide($duration) {
+  animation-name: side-to-side;
+  animation-duration: $duration;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@mixin float($distance: 20px, $duration: 6s) {
+  animation-name: float-#{$distance};
+  animation-duration: $duration;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+
+  @keyframes float-#{$distance} {
+    0% {
+      transform: translatey(0px);
+    }
+    50% {
+      transform: translatey(-$distance);
+    }
+    100% {
+      transform: translatey(0px);
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin rotate($duration) {
+  animation-name: rotate;
+  animation-duration: $duration;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}

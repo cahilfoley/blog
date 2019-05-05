@@ -1,0 +1,24 @@
+@import 'styles/colors';
+
+@mixin dashedBorder(
+  $color: $mdc-theme-primary,
+  $border-padding: 2%,
+  $border-radius: 20%,
+  $border-width: 1px
+) {
+  &:before {
+    box-sizing: border-box;
+    content: '';
+    display: block;
+    position: absolute;
+    top: -$border-padding;
+    left: -$border-padding;
+    width: 100% + $border-padding * 2;
+    height: 100% + $border-padding * 2;
+    border-color: $color;
+    border-radius: $border-radius;
+    border-width: $border-width;
+    border-style: dashed;
+    z-index: -1;
+  }
+}
